@@ -50,11 +50,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fakeroot binutils
 
-      - name: Compilation
-        run: ./gradlew jpackage
-
       - name: Package application
-        run: ./gradlew package
+        run: ./gradlew jpackage
         shell: bash
 
       - name: artifacts
