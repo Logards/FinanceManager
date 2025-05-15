@@ -1,0 +1,65 @@
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ arch-latest, windows-latest, macOS-latest ]
+        java: [ '21.07' ]
+      fail-fast: false
+    name: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configuration de Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'  # Distribution d'OpenJDK
+          java-version: ${{ matrix.java }}
+          cache: gradle
+
+      - name: Gradle Permission
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        run: chmod +x ./gradlew
+
+      - name: Installation des dépendances Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fakeroot binutils
+
+      - name: Compilation du projet
+        run: ./gradlew build
+
+      - name: Package de l'application
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            ./gradlew jpackage --type deb
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            ./gradlew jpackage --type msi
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            ./gradlew jpackage --type pkg
+          fi
+        shell: bash
+
+      - name: Téléversement des artefacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: FinanceManager-${{ runner.os }}
+          path: |
+            build/jpackage/*.deb
+            build/jpackage/*.msi
+            build/jpackage/*.pkg
+            build/jpackage/*.dmg
+
+      - name: Create release github
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            build/jpackage/*.deb
+            build/jpackage/*.msi
+            build/jpackage/*.pkg
+            build/jpackage/*.dmg
+          draft: false
+          prerelease: false
