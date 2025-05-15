@@ -1,3 +1,13 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, master ]
+
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
