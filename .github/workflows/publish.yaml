@@ -7,14 +7,13 @@ on:
   pull_request:
     branches: [ main, master ]
 
-
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ arch-latest, windows-latest, macOS-latest ]
-        java: [ '21.07' ]
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]
+        java: [ '21' ]
       fail-fast: false
     name: ${{ matrix.os }}
     steps:
@@ -53,7 +52,7 @@ jobs:
         shell: bash
 
       - name: artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: FinanceManager-${{ runner.os }}
           path: |
