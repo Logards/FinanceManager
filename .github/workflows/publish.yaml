@@ -18,24 +18,44 @@ jobs:
     name: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configuration de Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'  # Distribution d'OpenJDK
+          distribution: 'temurin'
           java-version: ${{ matrix.java }}
           cache: gradle
+
+      # Ajout d'une étape pour vérifier le contenu du dépôt
+      - name: List repository contents
+        run: ls -la
+
+      # Ajout d'une étape pour générer le wrapper si nécessaire
+      - name: Setup Gradle Wrapper
+        run: |
+          if [ ! -f "./gradlew" ]; then
+            gradle wrapper --gradle-version 8.11
+          fi
+        shell: bash
 
       - name: Gradle Permission
         if: runner.os == 'Linux' || runner.os == 'macOS'
         run: chmod +x ./gradlew
+
+      # Vérifier que le wrapper fonctionne
+      - name: Verify Gradle Wrapper
+        run: ./gradlew --version
+        shell: bash
 
       - name: Installation des dépendances Linux
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y fakeroot binutils
+
+      - name: Compilation
+        run: ./gradlew build
 
       - name: Package application
         run: |
