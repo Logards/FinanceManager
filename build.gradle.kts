@@ -53,11 +53,33 @@ jlink {
     }
     jpackage {
         if (org.gradle.internal.os.OperatingSystem.current().isLinux) {
-            // Ajouter uniquement l'icône à l'image
+            // Configuration Linux
             imageOptions.addAll(listOf("--icon", "src/main/resources/icons/icon.png"))
-            // Ne pas créer d'installateur, seulement l'image de l'application
-            skipInstaller = true
-            // Ne pas inclure l'option --linux-shortcut qui n'est valide que pour les installateurs
+            skipInstaller = false
+            installerType = "deb"
+            installerOptions = listOf(
+                "--linux-package-name", "finance-manager",
+                "--linux-deb-maintainer", "example@example.com"
+            )
+        } else if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
+            // Configuration Windows
+            imageOptions.addAll(listOf("--icon", "src/main/resources/icons/icon.ico"))
+            skipInstaller = false
+            installerType = "msi"
+            installerOptions = listOf(
+                "--win-dir-chooser",
+                "--win-menu",
+                "--win-shortcut",
+                "--win-per-user-install"
+            )
+        } else if (org.gradle.internal.os.OperatingSystem.current().isMacOsX) {
+            imageOptions.addAll(listOf("--icon", "src/main/resources/icons/icon.icns"))
+            skipInstaller = false
+            installerType = "pkg"
+            installerOptions = listOf(
+                "--mac-package-name", "FinanceManager",
+                "--mac-package-identifier", "com.example.financemanager"
+            )
         }
     }
 }

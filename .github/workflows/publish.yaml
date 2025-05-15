@@ -27,10 +27,6 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: gradle
 
-      # Ajout d'une étape pour vérifier le contenu du dépôt
-      - name: List repository contents
-        run: ls -la
-
       # Ajout d'une étape pour générer le wrapper si nécessaire
       - name: Setup Gradle Wrapper
         run: |
@@ -55,17 +51,10 @@ jobs:
           sudo apt-get install -y fakeroot binutils
 
       - name: Compilation
-        run: ./gradlew build
+        run: ./gradlew jpackage
 
       - name: Package application
-        run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            ./gradlew jpackage --type deb
-          elif [ "$RUNNER_OS" == "Windows" ]; then
-            ./gradlew jpackage --type msi
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-            ./gradlew jpackage --type pkg
-          fi
+        run: ./gradlew package
         shell: bash
 
       - name: artifacts
