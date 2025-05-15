@@ -28,10 +28,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y fakeroot binutils
 
-      - name: Compilation du projet
+      - name: Compilation
         run: ./gradlew build
 
-      - name: Package de l'application
+      - name: Package application
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
             ./gradlew jpackage --type deb
@@ -42,7 +42,7 @@ jobs:
           fi
         shell: bash
 
-      - name: Téléversement des artefacts
+      - name: artifacts
         uses: actions/upload-artifact@v3
         with:
           name: FinanceManager-${{ runner.os }}
