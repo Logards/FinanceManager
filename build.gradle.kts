@@ -62,7 +62,6 @@ jlink {
                 "--linux-deb-maintainer", "example@example.com"
             )
         } else if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
-            // Configuration Windows
             imageOptions.addAll(listOf("--icon", "src/main/resources/icons/icon.ico"))
             skipInstaller = false
             installerType = "msi"
