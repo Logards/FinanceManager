@@ -1,0 +1,61 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.financemanager.controller.ExpenseController"
+      alignment="TOP_CENTER"
+      spacing="10"
+      stylesheets="@expense.css">
+    <Text styleClass="title">Tableau des dépenses</Text>
+    <TableView fx:id="expenseTable">
+        <columns>
+            <TableColumn text="Period" prefWidth="250">
+                <cellValueFactory>
+                    <PropertyValueFactory property="period"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Total" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="total"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Accommodation" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="accommodation"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Food" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="food"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Outing" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="outing"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Transport" prefWidth="120">
+                <cellValueFactory>
+                    <PropertyValueFactory property="transport"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Travel" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="travel"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Taxes" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="taxes"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Others" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="others"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <Button fx:id="addButton" onAction="#showAddExpenseDialog">Ajouter</Button>
+</VBox>

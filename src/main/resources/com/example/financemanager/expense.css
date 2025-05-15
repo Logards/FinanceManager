@@ -1,0 +1,13 @@
+.table-view {
+    -fx-table-cell-border-color: #ffffff;
+}
+
+.table-cell:odd {
+    -fx-background-color: #b1dce7;
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-fill: #338ba1;
+    -fx-font-weight: bold;
+}

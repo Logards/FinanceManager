@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<DialogPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="com.example.financemanager.controller.ExpenseDialogController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <content>
+        <VBox spacing="10.0">
+            <Label>Date</Label>
+            <DatePicker fx:id="datePicker" promptText="Enter a date"/>
+
+            <Label>Accommodation</Label>
+            <TextField fx:id="accommodationTextField" promptText="Enter accommodation amount"/>
+
+            <Label>Food</Label>
+            <TextField fx:id="foodTextField" promptText="Enter food amount"/>
+
+            <Label>Outing</Label>
+            <TextField fx:id="outgoingTextField" promptText="Enter outing amount"/>
+
+            <Label>Transport</Label>
+            <TextField fx:id="transportTextField" promptText="Enter transport amount"/>
+
+            <Label>Travel</Label>
+            <TextField fx:id="travelTextField" promptText="Enter travel amount"/>
+
+            <Label>Taxes</Label>
+            <TextField fx:id="taxesTextField" promptText="Enter taxes amount"/>
+
+            <Label>Other Expenses</Label>
+            <TextField fx:id="otherTextField" promptText="Enter other expenses"/>
+
+        </VBox>
+    </content>
+
+    <ButtonType text="Add Line" buttonData="OK_DONE"/>
+    <ButtonType text="Cancel" buttonData="CANCEL_CLOSE"/>
+</DialogPane>
