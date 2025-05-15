@@ -37,6 +37,9 @@ javafx {
 
 dependencies {
     implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+    implementation("org.apache.logging.log4j:log4j-api:2.22.1")
+    implementation("org.slf4j:slf4j-log4j12:2.0.11")
+    implementation("org.slf4j:slf4j-api:2.0.11")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
